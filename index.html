@@ -12,42 +12,43 @@
         <div class="small-6 columns">
             <h1 class="text-center">SEN</h1>
             <div class="healthbar">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
-
+                <div class="healthbar text-center" :style="{width: can_p +'%'}" style="background-color: green; margin: 0; color: white;">
+                    {{can_p}}%
                 </div>
             </div>
         </div>
         <div class="small-6 columns">
             <h1 class="text-center">CANAVAR</h1>
             <div class="healthbar">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
-
+                <div class="healthbar text-center" :style="{width: can_m +'%'}" style="background-color: green; margin: 0; color: white;">
+                    {{can_m}}%
                 </div>
             </div>
         </div>
     </section>
     <section class="row controls">
         <div class="small-12 columns">
-            <button id="start-game">YENİ OYUN</button>
+            <button id="start-game" @click="game_start">YENİ OYUN</button>
         </div>
     </section>
-    <section class="row controls">
+    <section class="row controls" v-if="isGameStart">
         <div class="small-12 columns">
-            <button id="attack">SALDIRI</button>
-            <button id="special-attack">ÖZEL SALDIRI</button>
-            <button id="heal">İLK YARDIM</button>
-            <button id="give-up">PES ET!</button>
+            <button id="attack" @click="attack">SALDIRI</button>
+            <button id="special-attack" @click="speacial_attack" >ÖZEL SALDIRI</button>
+            <button id="heal" @click="health">İLK YARDIM</button>
+            <button id="give-up" @click="give_up">PES ET!</button>
         </div>
     </section>
-    <section class="row log">
+    <section class="row log" v-if="isGameStart">
         <div class="small-12 columns">
             <ul>
-                <li>
-
+                <li :class="{'player-turn': log.turn=='p', 'monster-turn': log.turn=='m'}" v-for="log in logs">
+                    {{log.text}}
                 </li>
             </ul>
         </div>
     </section>
 </div>
+<script src="./app.js"></script>
 </body>
 </html>
